@@ -1,0 +1,34 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build
+dist
+build
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Version Control
+.git
+.github
+
+# IDE
+.idea
+.vscode
+
+# Logs
+logs
+*.log
+
+# Test
+coverage
+.nyc_output
+
+# Misc
+.DS_Store
+README.md
+docker-compose*.yml
+Dockerfile 

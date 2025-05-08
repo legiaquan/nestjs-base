@@ -1,0 +1,97 @@
+{
+  "info": {
+    "name": "NestJs Base API Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "Ping Test",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "{{ACCEPT}}"
+              }
+            ],
+            "url": {
+              "raw": "{{API_BASE_URL}}/health/ping",
+              "host": ["{{API_BASE_URL}}"],
+              "path": ["health", "ping"]
+            }
+          }
+        },
+        {
+          "name": "Full Health Check",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "{{ACCEPT}}"
+              }
+            ],
+            "url": {
+              "raw": "{{API_BASE_URL}}/health",
+              "host": ["{{API_BASE_URL}}"],
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "Health Check with Auth",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "{{ACCEPT}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "{{CONTENT_TYPE}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{AUTH_TOKEN_PREFIX}} {{AUTH_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{API_BASE_URL}}/health",
+              "host": ["{{API_BASE_URL}}"],
+              "path": ["health"]
+            }
+          }
+        },
+        {
+          "name": "Health Check with Invalid Token",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "{{ACCEPT}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "{{CONTENT_TYPE}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "{{AUTH_TOKEN}}"
+              }
+            ],
+            "url": {
+              "raw": "{{API_BASE_URL}}/health",
+              "host": ["{{API_BASE_URL}}"],
+              "path": ["health"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+} 

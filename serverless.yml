@@ -1,0 +1,53 @@
+service: nestjs-base-api
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs22.x
+  stage: ${opt:stage, 'dev'}
+  versionFunctions: false
+  region: ap-southeast-1
+  timeout: 6
+  deploymentBucket:
+    name: ${self:service}-${self:provider.stage}-deployment
+    serverSideEncryption: AES256
+    blockPublicAccess: true
+    maxPreviousDeploymentArtifacts: 10
+
+  environment:
+    NODE_ENV: ${env:NODE_ENV}
+    PORT: ${env:PORT}
+
+custom:
+  dotenv:
+    exclude:
+      - AWS_REGION
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+  includeDependencies:
+    enableCaching: true
+
+functions:
+  app:
+    handler: dist/lambda.handler
+    events:
+      - http:
+          method: any
+          path: /{proxy+}
+          cors: true
+
+package:
+  excludeDevDependencies: true
+  patterns:
+    - '!node_modules/**'
+    - '!src/**'
+    - '!test/**'
+    - '!scripts/**'
+    - '!dist/lambda.js'
+    - '!dist/lambda.js.map'
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+  - serverless-plugin-common-excludes
+  - serverless-plugin-include-dependencies

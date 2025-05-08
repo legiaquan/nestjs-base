@@ -1,0 +1,70 @@
+{
+  "rest-client.environmentVariables": {
+    "$shared": {
+      "API_BASE_URL": "http://localhost:3000",
+      "API_VERSION": "v1",
+      "ACCEPT": "application/json",
+      "CONTENT_TYPE": "application/json",
+      "AUTH_TOKEN_PREFIX": "Bearer",
+      "AUTH_TOKEN": "local_token_here"
+    },
+    "local": {
+      "API_BASE_URL": "http://localhost:3000",
+      "AUTH_TOKEN": "local_token_here"
+    },
+    "dev": {
+      "API_BASE_URL": "https://dev-api.example.com",
+      "AUTH_TOKEN": "dev_token_here"
+    },
+    "prod": {
+      "API_BASE_URL": "https://api.example.com",
+      "AUTH_TOKEN": "prod_token_here"
+    }
+  },
+  "rest-client.defaultHeaders": {
+    "Accept": "{{ACCEPT}}",
+    "Content-Type": "{{CONTENT_TYPE}}",
+    "Authorization": "{{AUTH_TOKEN_PREFIX}} {{AUTH_TOKEN}}"
+  },
+  "rest-client.followredirect": true,
+  "rest-client.timeoutinmilliseconds": 5000,
+  "rest-client.previewResponseInUntitledDocument": true,
+  "rest-client.logLevel": "debug",
+  "rest-client.logRequest": true,
+  "rest-client.logResponse": true,
+  "rest-client.certificates": {},
+  "rest-client.excludeHostsForProxy": [],
+  "rest-client.memoryVariables": {},
+  "rest-client.previewOption": "full",
+  "rest-client.showResponseInDifferentTab": true,
+  "rest-client.useTruncatedParsing": false,
+
+  // Editor settings
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixCurrentFile.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixCurrentFile.eslint": "explicit",
+      "source.organizeImports": "explicit"
+    }
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "eslint.validate": ["javascript", "typescript"],
+  "eslint.format.enable": true,
+  "eslint.run": "onType",
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "eslint.lintTask.enable": false,
+  "eslint.probe": ["javascript", "typescript"],
+  "eslint.quiet": true
+}

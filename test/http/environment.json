@@ -1,0 +1,36 @@
+{
+  "id": "local",
+  "name": "Local",
+  "values": [
+    {
+      "key": "API_BASE_URL",
+      "value": "http://localhost:3000",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "ACCEPT",
+      "value": "application/json",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "CONTENT_TYPE",
+      "value": "application/json",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "AUTH_TOKEN_PREFIX",
+      "value": "Bearer",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "AUTH_TOKEN",
+      "value": "local_token_here",
+      "type": "default",
+      "enabled": true
+    }
+  ]
+} 

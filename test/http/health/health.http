@@ -1,0 +1,28 @@
+### Import Environment Variables
+# @name environment
+
+### Health Check API Tests
+
+### Ping Test
+# @name ping
+GET {{API_BASE_URL}}/health/ping
+Accept: {{ACCEPT}}
+
+### Full Health Check
+# @name health
+GET {{API_BASE_URL}}/health
+Accept: {{ACCEPT}}
+
+### Health Check with Auth
+# @name healthAuth
+GET {{API_BASE_URL}}/health
+Accept: {{ACCEPT}}
+Content-Type: {{CONTENT_TYPE}}
+Authorization: {{AUTH_TOKEN_PREFIX}} {{AUTH_TOKEN}}
+
+### Health Check with Invalid Token
+# @name healthInvalidToken
+GET {{API_BASE_URL}}/health
+Accept: {{ACCEPT}}
+Content-Type: {{CONTENT_TYPE}}
+Authorization: {{AUTH_TOKEN}}

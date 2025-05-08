@@ -1,0 +1,137 @@
+{
+  "project": {
+    "name": "NestJs Base Backend",
+    "description": "A NestJS backend for application",
+    "version": "1.0.0",
+    "techStack": {
+      "runtime": "Node.js >= 22.0.0",
+      "language": "TypeScript",
+      "framework": "NestJS",
+      "database": "MongoDB with Mongoose",
+      "authentication": "JWT",
+      "deployment": ["Serverless (AWS Lambda)", "Traditional NestJS Server"],
+      "containerization": "Docker & Docker Compose"
+    }
+  },
+  "architecture": {
+    "layers": {
+      "api": {
+        "components": ["Controllers", "Guards", "Interceptors", "Pipes"],
+        "responsibilities": [
+          "HTTP request handling",
+          "Input validation",
+          "Response formatting",
+          "Authentication & Authorization"
+        ]
+      },
+      "business": {
+        "components": ["Services", "DTOs"],
+        "responsibilities": [
+          "Business logic implementation",
+          "Data transformation",
+          "Business rules validation"
+        ]
+      },
+      "data": {
+        "components": ["Models", "Mongoose Schemas", "Repositories"],
+        "responsibilities": ["Database access", "Data modeling", "Query optimization"]
+      }
+    },
+    "patterns": ["Repository Pattern", "Dependency Injection", "DTO Pattern", "Middleware Pattern"]
+  },
+  "api": {
+    "versioning": {
+      "strategy": "URL path versioning",
+      "currentVersion": "v1",
+      "baseUrls": {
+        "development": "http://localhost:3000/api/v1",
+        "production": "https://api.example.com/api/v1"
+      }
+    },
+    "authentication": {
+      "method": "JWT",
+      "endpoints": {
+        "login": "POST /auth/login",
+        "tokenUsage": "Authorization: Bearer {token}"
+      }
+    },
+    "resources": {
+      "users": {
+        "endpoints": [
+          "GET /users/me",
+          "POST /users",
+          "GET /users/:id",
+          "PUT /users/:id",
+          "DELETE /users/:id"
+        ]
+      },
+      "items": {
+        "endpoints": [
+          "GET /items",
+          "GET /items/:id",
+          "POST /items",
+          "PUT /items/:id",
+          "DELETE /items/:id"
+        ],
+        "features": ["Pagination", "Sorting", "Filtering"]
+      }
+    }
+  },
+  "development": {
+    "workflow": {
+      "branching": {
+        "main": "Production-ready code",
+        "develop": "Development branch",
+        "feature/*": "New features",
+        "bugfix/*": "Bug fixes",
+        "hotfix/*": "Urgent fixes"
+      },
+      "commitConvention": "Conventional Commits",
+      "testing": {
+        "coverage": ">= 80%",
+        "types": ["Unit Tests", "Integration Tests", "End-to-End Tests"]
+      }
+    },
+    "tools": {
+      "linting": "ESLint",
+      "formatting": "Prettier",
+      "documentation": "Swagger",
+      "database": {
+        "migrations": "Mongoose Migrations",
+        "client": "Mongoose"
+      },
+      "ignore": {
+        "files": [
+          ".env",
+          ".env.*",
+          "node_modules",
+          "dist",
+          "build",
+          "coverage"
+        ]
+      }
+    }
+  },
+  "deployment": {
+    "environments": {
+      "development": {
+        "setup": [
+          "npm install",
+          "cp env.example .env",
+          "docker-compose up -d",
+          "npm run prisma:migrate:dev",
+          "npm start"
+        ]
+      },
+      "production": {
+        "options": ["AWS Lambda (Serverless)", "Traditional Server"]
+      }
+    }
+  },
+  "security": {
+    "authentication": "JWT",
+    "authorization": "Role-based Access Control",
+    "dataValidation": "Input sanitization & validation",
+    "errorHandling": "Standardized error responses"
+  }
+}
