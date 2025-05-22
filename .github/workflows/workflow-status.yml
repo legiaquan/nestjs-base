@@ -1,0 +1,25 @@
+name: Workflow Status
+
+on:
+  workflow_run:
+    workflows:
+      - Lint PR
+      - Secret Check
+      - Build Verification
+      - AI Code Review
+    types:
+      - completed
+
+jobs:
+  status-check:
+    name: Verify All Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check workflow status
+        run: |
+          if [[ "${{ github.event.workflow_run.conclusion }}" != "success" ]]; then
+            echo "Workflow ${{ github.event.workflow_run.name }} failed!"
+            exit 1
+          else
+            echo "Workflow ${{ github.event.workflow_run.name }} succeeded!"
+          fi
