@@ -10,6 +10,7 @@ import { loggerConfig } from './common/logger/logger.config';
 import { RequestContextMiddleware } from './common/middleware/request-context.middleware';
 import { ResponseTimeMiddleware } from './common/middleware/response-time.middleware';
 import configuration from './config/configuration';
+import { buildMongoUri } from './configs/mongoose.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { HealthModule } from './modules/health/health.module';
 import { UserModule } from './modules/user/user.module';
@@ -23,9 +24,24 @@ import { UserModule } from './modules/user/user.module';
     LoggerModule.forRoot(loggerConfig),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        uri: configService.get<string>('database.uri'),
-      }),
+      useFactory: (configService: ConfigService) => {
+        const databaseConfig = configService.get<{
+          username: string;
+          password: string;
+          host: string;
+          port: number;
+          database_name: string;
+          authSource?: string;
+        }>('database');
+
+        if (!databaseConfig) {
+          throw new Error('Database sconfiguration not found');
+        }
+
+        return {
+          uri: buildMongoUri(databaseConfig),
+        };
+      },
       inject: [ConfigService],
     }),
     HealthModule,

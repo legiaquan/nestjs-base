@@ -1,11 +1,10 @@
-version: '3.8'
-
 services:
   # Node.js application environment
   app:
     build:
       context: .
       dockerfile: ./docker/node/Dockerfile
+      target: ${DOCKER_STAGE:-local}
     container_name: app
     volumes:
       - .:/app
@@ -16,7 +15,6 @@ services:
       - .env
     depends_on:
       - mongodb
-      - rabbitmq
     networks:
       - app-network
 
@@ -26,30 +24,15 @@ services:
     container_name: mongodb
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME:-admin}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD:-password}
-      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE:-nestjs-base}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD:-password}
+      MONGO_INITDB_DATABASE: ${MONGODB_DATABASE:-nestjs-base}
     ports:
       - '${MONGO_PORT:-27017}:27017'
     volumes:
       - mongodb_data:/data/db
       - ./docker/mongodb/init:/docker-entrypoint-initdb.d
     command: mongod --auth
-    networks:
-      - app-network
-
-  # RabbitMQ message broker
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: rabbitmq
-    ports:
-      - '${RABBITMQ_PORT:-5672}:5672'
-      - '${RABBITMQ_MANAGEMENT_PORT:-15672}:15672'
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-admin}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-password}
-    volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
     networks:
       - app-network
 
@@ -60,4 +43,3 @@ networks:
 volumes:
   node_modules:
   mongodb_data:
-  rabbitmq_data:

@@ -5,6 +5,27 @@ import { CustomLoggerService } from '../common/utils/logger';
 const logger = CustomLoggerService.getInstance('MongoDB');
 const isProduction = process.env.NODE_ENV === 'production';
 
+interface DatabaseConfig {
+  username: string;
+  password: string;
+  host: string;
+  database_name: string;
+  authSource?: string;
+  port?: number;
+}
+
+export const buildMongoUri = (config: DatabaseConfig): string => {
+  const { username, password, host, database_name, authSource, port = 27017 } = config;
+
+  let uri = `mongodb://${username}:${password}@${host}:${port}/${database_name}`;
+
+  if (authSource && authSource.trim()) {
+    uri += `?authSource=${authSource}`;
+  }
+
+  return uri;
+};
+
 export const mongooseConfig = (uri: string): MongooseModuleOptions => {
   return {
     uri,
