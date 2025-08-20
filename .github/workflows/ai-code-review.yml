@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: AI-Powered Code Review
-        uses: legiaquan/code-review-action@v1
+        uses: legiaquan/code-review-action@@v1.0.0
         with:
           provider: 'gemini'
           api_key: ${{ secrets.GEMINI_API_KEY }}
