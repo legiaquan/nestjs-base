@@ -60,3 +60,5 @@ test/http/.env
 .build
 .serverless
 pesmission.json
+
+.early.coverage
