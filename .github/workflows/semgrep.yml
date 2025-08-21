@@ -1,0 +1,42 @@
+name: Semgrep SAST
+
+on:
+  pull_request:
+  push:
+    branches: ["main", "develop"]
+  schedule:
+    - cron: '0 4 * * 1'
+
+jobs:
+  semgrep:
+    name: Run Semgrep
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Semgrep
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: >-
+            p/owasp-top-ten
+            p/nodejsscan
+            p/semgrep-rule-lints
+          auditOn: push
+          generateSarif: true
+          output: semgrep.sarif
+
+      - name: Upload SARIF to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep.sarif
+
+

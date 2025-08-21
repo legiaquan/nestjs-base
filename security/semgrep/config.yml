@@ -1,0 +1,13 @@
+# Central Semgrep config for this repo
+# Includes community packs and local custom rules
+
+configs:
+  - p/owasp-top-ten
+  - p/nodejsscan
+  - p/security-audit
+  - p/secrets
+  - p/javascript
+  - p/typescript
+  - ./rules
+
+

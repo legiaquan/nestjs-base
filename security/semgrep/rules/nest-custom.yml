@@ -1,0 +1,88 @@
+rules:
+  - id: nest-missing-auth-guard
+    message: "Controller route missing AuthGuard; ensure authentication is enforced or explicitly marked public."
+    severity: ERROR
+    languages: [ts]
+    patterns:
+      - pattern: |
+          @Controller(...)
+          class $C {
+            @$(METHOD)(...)
+            $ROUTE(...) { ... }
+          }
+      - pattern-not: |
+          @UseGuards($G)
+          @$(METHOD)(...)
+          $ROUTE(...) { ... }
+      - pattern-not: |
+          @Public()
+          @$(METHOD)(...)
+          $ROUTE(...) { ... }
+    metadata:
+      category: security
+      technology: [nest, node, typescript]
+
+  - id: dto-missing-validation-decorators
+    message: "DTO property missing validation decorators (e.g., class-validator)"
+    severity: WARNING
+    languages: [ts]
+    patterns:
+      - pattern: |
+          export class $DTO {
+            $PROP: $TYPE
+          }
+      - pattern-not: |
+          export class $DTO {
+            @... 
+            $PROP: $TYPE
+          }
+    metadata:
+      category: security
+      technology: [typescript, nest]
+
+  - id: raw-query-no-parameterization
+    message: "Possible SQL/NoSQL injection via unparameterized raw query"
+    severity: ERROR
+    languages: [ts, js]
+    patterns:
+      - pattern-either:
+          - pattern: $DB.collection($C).find($RAW)
+          - pattern: $DB.collection($C).aggregate($RAW)
+          - pattern: $DB.query($RAW)
+          - pattern: $REPO.query($RAW)
+    metadata:
+      category: security
+      cwe: [89]
+      technology: [node, typescript]
+
+  - id: insecure-crypto-md5-sha1
+    message: "Insecure hash algorithm (MD5/SHA1). Use SHA-256 or better."
+    severity: ERROR
+    languages: [ts, js]
+    patterns:
+      - pattern-either:
+          - pattern: crypto.createHash("md5")(...) 
+          - pattern: crypto.createHash('md5')(...)
+          - pattern: crypto.createHash("sha1")(...) 
+          - pattern: crypto.createHash('sha1')(...)
+    metadata:
+      category: security
+      cwe: [327]
+      technology: [node]
+
+  - id: mongodb-where-operator
+    message: "Avoid using MongoDB $where with user input; leads to NoSQL injection."
+    severity: ERROR
+    languages: [ts, js]
+    patterns:
+      - pattern-either:
+          - pattern: $MODEL.find({ $where: $X })
+          - pattern: $MODEL.findOne({ $where: $X })
+          - pattern: $MODEL.updateMany({ $where: $X }, ...)
+          - pattern: $MODEL.updateOne({ $where: $X }, ...)
+    metadata:
+      category: security
+      cwe: [943]
+      technology: [node, mongoose]
+
+

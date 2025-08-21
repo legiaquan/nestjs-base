@@ -1,0 +1,17 @@
+# Ignore dependencies and build artifacts
+node_modules/
+dist/
+coverage/
+
+# Ignore tests and e2e HTTP collection files
+test/
+**/*.spec.ts
+**/*.e2e-spec.ts
+
+# Ignore lockfiles
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+bun.lock
+
+

@@ -21,6 +21,8 @@
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
 </p>
 
+![SAST](https://github.com/legiaquan/nestjs-base/actions/workflows/sast.yml/badge.svg)
+
 ## Documentation
 
 For detailed information about the project, please refer to the following documentation:
