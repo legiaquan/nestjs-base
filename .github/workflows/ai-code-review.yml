@@ -24,7 +24,7 @@ jobs:
           provider: 'gemini'
           api_key: ${{ secrets.GEMINI_API_KEY }}
           review_level: 'diff'
-          include_globs: 'src/**/*.ts,lib/**/*.js'
+          include_globs: 'src/**/*.ts,lib/**/*.js,**/*.ts'
           exclude_globs: '**/*.test.ts,**/*.spec.ts'
           max_chunk_lines: 300
           rules: |
