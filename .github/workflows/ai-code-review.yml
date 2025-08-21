@@ -3,11 +3,6 @@ name: AI-Powered Code Review
 on:
   pull_request:
     types: [opened, synchronize]
-  workflow_dispatch:
-    inputs:
-      pr_number:
-        description: 'PR number to review'
-        required: true
 
 permissions:
   issues: write
